@@ -1,5 +1,22 @@
 # Redis数据结构
 
+- string
+  - int，整数值实现的字符串
+  - embstr，使用embstr编码的简单动态字符串
+  - raw，简单动态字符串
+- list
+  - ziplist，使用压缩列表实现的列表对象
+  - lindedlist，使用双端链表实现的列表对象
+- hash
+  - ziplist，使用压缩列表实现的hash
+  - ht，使用字典实现的hash对象
+- set
+  - intset，整数集合
+  - ht，字典实现的集合对象
+- zset
+  - ziplist，压缩列表实现的有序集合对象
+  - skiplist，跳跃表和字典实现的有序集合对象
+
 ## 简单动态字符串SDS
 
 1. 定义
@@ -42,16 +59,16 @@
 
     hash表结构
 
-    - `dictEntry **table;` hash表数组
-    - unsigned long size; hash表大小
-    - unsigned long sizemask; 掩码，用来计算索引值，总是等于size-1
-    - unsigned long used; 已有节点的数量
+    - `dictEntry **table` hash表数组
+    - `unsigned long size` hash表大小
+    - `unsigned long sizemask` 掩码，用来计算索引值，总是等于size-1
+    - `unsigned long used` 已有节点的数量
 
     hash表节点属性
 
-    - `void* key;` 键
-    - union v; 值，保存一个`void*`指针，或者一个`uint64_t`整数或`int64_t`整数
-    - `dictEntry* next;` 指向下一个节点，形成链表，开链法解决冲突
+    - `void* key` 键
+    - `union v` 值，保存一个`void*`指针，或者一个`uint64_t`整数或`int64_t`整数
+    - `dictEntry* next` 指向下一个节点，形成链表，开链法解决冲突
 
     dict结构
 
